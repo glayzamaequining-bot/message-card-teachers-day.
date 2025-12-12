@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher's Day Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            min-height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .card-front {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card-back {
+            background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .teacher-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+            to { text-shadow: 0 0 20px rgba(231, 76, 60, 0.😎, 0 0 30px rgba(231, 76, 60, 0.6); }
+        }
+
+        .message {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            font-style: italic;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #8e44ad;
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .flip-instruction {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: rgba(44, 62, 80, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .decorative-border {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #f1c40f;
+            font-size: 1.5rem;
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
+        .apple-icon {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        @media (max-width: 600px) {
+            .card { height: 500px; }
+            .card-front, .card-back { padding: 30px; }
+            .title { font-size: 2.8rem; }
+            .teacher-name { font-size: 2rem; }
+            .message { font-size: 1.1rem; }
+            .student-name { font-size: 1.5rem; }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <main class="card-container">
+   <div class="card" id="teacherCard">
+    <div class="card-face card-front">
+     <div class="floating-hearts" id="heartsContainer"></div>
+     <div class="decorative-border"></div>
+     <div class="sparkle" style="top: 20%; left: 15%;">
+      ✨
+     </div>
+     <div class="sparkle" style="top: 30%; right: 20%; animation-delay: 1s;">
+      ⭐
+     </div>
+     <div class="sparkle" style="bottom: 25%; left: 20%; animation-delay: 2s;">
+      ✨
+     </div>
+     <div class="sparkle" style="bottom: 35%; right: 15%; animation-delay: 0.5s;">
+      ⭐
+     </div>
+     <div class="apple-icon">
+      🍎
+     </div>
+     <h1 class="title">Happy Teacher's Day!</h1>
+     <p class="flip-instruction">Click to open your card ✨</p>
+    </div>
+    <div class="card-face card-back">
+     <div class="decorative-border"></div>
+     <h2 class="teacher-name" id="teacherName">Dear sir RANDY BELLO</h2>
+     <p class="message" id="personalMessage">Thank you sir for being an amazing teacher! Your dedication, patience, and wisdom have made such a difference in my life. You inspire me to learn, grow, and become the best version of myself every day.</p>
+     <p class="student-name" id="studentName">With gratitude</p>
+    </div>
+   </div>
+  </main>
+  <script>
+        // Configuration object for editable features
+        const defaultConfig = {
+            teacher_name: "Dear Sir RANDY BELLO",
+            personal_message: "Thank you sir for being an amazing teacher! Your dedication, patience, and wisdom have made such a difference in my life. You inspire me to learn, grow, and become the best version of myself every day.",
+           
+            primary_color: "#ff9a9e",
+            secondary_color: "#a8edea",
+            text_color: "#2c3e50",
+            accent_color: "#e74c3c",
+            highlight_color: "#8e44ad"
+        };
+
+        // Card flip functionality
+        const card = document.getElementById('teacherCard');
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            
+            document.getElementById('heartsContainer').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Generate hearts periodically
+        setInterval(createHeart, 1500);
+
+        // Element SDK configuration
+        async function onConfigChange(config) {
+            const teacherNameEl = document.getElementById('teacherName');
+            const personalMessageEl = document.getElementById('personalMessage');
+            const studentNameEl = document.getElementById('studentName');
+
+            teacherNameEl.textContent = config.teacher_name || defaultConfig.teacher_name;
+            personalMessageEl.textContent = config.personal_message || defaultConfig.personal_message;
+            studentNameEl.textContent = config.student_name || defaultConfig.student_name;
+
+            // Apply color customizations
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+            const highlightColor = config.highlight_color || defaultConfig.highlight_color;
+
+            document.documentElement.style.setProperty('--primary-color', primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+            document.documentElement.style.setProperty('--text-color', textColor);
+            document.documentElement.style.setProperty('--accent-color', accentColor);
+            document.documentElement.style.setProperty('--highlight-color', highlightColor);
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ primary_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || defaultConfig.secondary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ secondary_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.accent_color || defaultConfig.accent_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ accent_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.highlight_color || defaultConfig.highlight_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ highlight_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+                ["personal_message", config.personal_message || defaultConfig.personal_message],
+                ["student_name", config.student_name || defaultConfig.student_name]
+            ]);
+        }
+
+        // Initialize Element SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Initial render
+        onConfigChange(defaultConfig);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ead773f43e894a',t:'MTc2MzE2ODc0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
